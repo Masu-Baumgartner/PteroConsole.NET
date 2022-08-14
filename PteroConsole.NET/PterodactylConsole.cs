@@ -228,6 +228,43 @@ public class PterodactylConsole : IDisposable
                 return ConsoleStatus.Offline;
         }
     }
+    
+    public async void Start()
+    {
+        if (Status == ConsoleStatus.Offline)
+        {
+            await Send("{\"event\":\"set state\",\"args\":[\"start\"]}");
+        }
+    }
+
+    public async void Stop()
+    {
+        if (Status == ConsoleStatus.Running || Status == ConsoleStatus.Starting)
+        {
+            await Send("{\"event\":\"set state\",\"args\":[\"stop\"]}");
+        }
+    }
+
+    public async void Restart()
+    {
+        if (Status == ConsoleStatus.Running)
+        {
+            await Send("{\"event\":\"set state\",\"args\":[\"restart\"]}");
+        }
+    }
+
+    public async void Kill()
+    {
+        if (Status == ConsoleStatus.Stopping)
+        {
+            await Send("{\"event\":\"set state\",\"args\":[\"kill\"]}");
+        }
+    }
+
+    public async void SendCommand(string command)
+    {
+        await Send("{\"event\":\"send command\",\"args\":[\"" + command + "\"]}");
+    }
 
     public void Dispose()
     {
