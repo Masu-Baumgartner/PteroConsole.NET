@@ -1,7 +1,7 @@
 ## PteroConsole.Net
 ### A simple library for connecting to a pterodactyl server console
 
-
+[![NuGet stable version](https://badgen.net/nuget/v/pteroconsole.net)](https://nuget.org/packages/pteroconsole.net)
 
 #### How to use
 
