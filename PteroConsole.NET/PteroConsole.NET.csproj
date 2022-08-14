@@ -8,11 +8,25 @@
     <Authors>Marcel-Baumgartner</Authors>
     <Description>A library for connecting to pterodactyl server consoles</Description>
     <Copyright>Marcel-Baumgartner</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</PackageLicenseUrl>
+    <PackageIcon>PteroConsole.NET.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>csharp pterodactyl console server stream</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
     <PackageReference Include="RestSharp" Version="106.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PteroConsole.NET.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
