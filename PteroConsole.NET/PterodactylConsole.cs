@@ -81,79 +81,86 @@ public class PterodactylConsole : IDisposable
                 {
                     var raw = await Receive();
 
-                    var be = JsonConvert.DeserializeObject<BaseEventDTO>(
-                        raw
-                    );
-
-                    switch (be.Event)
+                    try
                     {
-                        case "jwt error":
-                            await WebSocket.CloseAsync(WebSocketCloseStatus.Empty, "Jwt Error detected", CancellationToken.None);
-                            SetStatus(ConsoleStatus.Disconnected);
-                            break;
+                        var be = JsonConvert.DeserializeObject<BaseEventDTO>(
+                            raw
+                        );
 
-                        case "token expired":
-                            await WebSocket.CloseAsync(WebSocketCloseStatus.Empty, "Jwt Error detected", CancellationToken.None);
-                            SetStatus(ConsoleStatus.Authenticating);
-                            break;
+                        switch (be.Event)
+                        {
+                            case "jwt error":
+                                await WebSocket.CloseAsync(WebSocketCloseStatus.Empty, "Jwt Error detected", CancellationToken.None);
+                                SetStatus(ConsoleStatus.Disconnected);
+                                break;
 
-                        case "token expiring":
-                            SetStatus(ConsoleStatus.Authenticating);
+                            case "token expired":
+                                await WebSocket.CloseAsync(WebSocketCloseStatus.Empty, "Jwt Error detected", CancellationToken.None);
+                                SetStatus(ConsoleStatus.Authenticating);
+                                break;
 
-                            wsd = GetWebsocket();
+                            case "token expiring":
+                                SetStatus(ConsoleStatus.Authenticating);
+
+                                wsd = GetWebsocket();
                             
-                            sae = new SendAuthEvent()
-                            {
-                                Args = new[] { wsd.Data.Token }
-                            };
-                            await Send(JsonConvert.SerializeObject(sae));
-                            break;
-
-                        case "auth success":
-                            SetStatus(ConsoleStatus.Authenticated);
-
-                            // Sending Intents
-                            await Send("{\"event\":\"send logs\",\"args\":[null]}");
-                            await Send("{\"event\":\"send stats\",\"args\":[null]}");
-                            break;
-
-                        case "stats":
-                            var srdto = JsonConvert.DeserializeObject<ServerResource>(be.Args[0]);
-
-                            if (srdto != null)
-                            {
-                                var statsStatus = ParseStatus(srdto.State);
-
-                                if (Status != statsStatus)
+                                sae = new SendAuthEvent()
                                 {
-                                    SetStatus(statsStatus);
-                                }
+                                    Args = new[] { wsd.Data.Token }
+                                };
+                                await Send(JsonConvert.SerializeObject(sae));
+                                break;
+
+                            case "auth success":
+                                SetStatus(ConsoleStatus.Authenticated);
+
+                                // Sending Intents
+                                await Send("{\"event\":\"send logs\",\"args\":[null]}");
+                                await Send("{\"event\":\"send stats\",\"args\":[null]}");
+                                break;
+
+                            case "stats":
+                                var srdto = JsonConvert.DeserializeObject<ServerResource>(be.Args[0]);
+
+                                if (srdto != null)
+                                {
+                                    var statsStatus = ParseStatus(srdto.State);
+
+                                    if (Status != statsStatus)
+                                    {
+                                        SetStatus(statsStatus);
+                                    }
                                 
-                                ServerResourcesChanged?.Invoke(this, srdto);
-                            }
-                            break;
+                                    ServerResourcesChanged?.Invoke(this, srdto);
+                                }
+                                break;
 
-                        case "status":
-                            var rawState = be.Args[0];
-                            SetStatus(ParseStatus(rawState));
+                            case "status":
+                                var rawState = be.Args[0];
+                                SetStatus(ParseStatus(rawState));
 
-                            break;
+                                break;
 
-                        case "console output":
-                            foreach (var msg in be.Args)
-                            {
-                                OutputReceived?.Invoke(this, msg);
-                            }
+                            case "console output":
+                                foreach (var msg in be.Args)
+                                {
+                                    OutputReceived?.Invoke(this, msg);
+                                }
 
-                            break;
+                                break;
 
-                        case "install output":
-                            foreach (var msg in be.Args)
-                            {
-                                OutputReceived?.Invoke(this, msg);
-                            }
+                            case "install output":
+                                foreach (var msg in be.Args)
+                                {
+                                    OutputReceived?.Invoke(this, msg);
+                                }
 
-                            break;
+                                break;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Well, its a quick fix ;)
                     }
                 }
             }
