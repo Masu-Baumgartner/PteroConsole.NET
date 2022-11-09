@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>csharp pterodactyl console server stream</PackageTags>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

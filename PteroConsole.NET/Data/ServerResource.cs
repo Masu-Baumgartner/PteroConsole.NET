@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PteroConsole.NET.Models;
+namespace PteroConsole.NET.Data;
 
 public class ServerResource
 {
@@ -24,7 +24,7 @@ public class ServerResource
 
     [JsonProperty("disk_bytes")]
     public long DiskBytes { get; set; }
-    
+
     public class NetworkData
     {
         [JsonProperty("rx_bytes")]

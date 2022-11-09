@@ -7,35 +7,7 @@
 
 First create a **PterodactylConsole** object
 
-*panelUrl: the url of your pterodactyl panel e.g. 'https://pterodactyl.file.properties/''*
-
-*clientKey: an api key created by a user with access to the server you want to connect*
-
-*serverUuid: the uuid of the server. this cloud be either the long or short version, e.g. '6c1c16ae', '6c1c16ae-abbe-495b-a96d-9b83e5018cbf'*
-````csharp
-var console = PterodactylConsole.Create(panelUrl, clientKey, serverUuid);
-````
-
-Then you should configure the events so you can listen to things sent from the server
-
-````csharp
-console.OutputReceived += (sender, msg) =>
-{
-    Console.WriteLine($"OUTPUT: {msg}");
-};
-
-````
-
-The last thing you have to do is to start connecting to console
-````csharp
-console.Connect();
-````
-
-If you want to close the console you just call the Dispose function
-
-`````csharp
-console.Dispose();
-`````
+For documentation see example project
 
 #### License
 
