@@ -27,9 +27,11 @@ public class PteroConsole : IDisposable
     public ConnectionState ConnectionState { get; private set; }
     public ServerState ServerState { get; private set; }
     public ServerResource ServerResource { get; private set; }
+    public List<string> MessageCache { get; private set; }
 
     public PteroConsole()
     {
+        MessageCache = new();
         WebSocket = new();
         ConnectionState = ConnectionState.Disconnected;
         ServerState = ServerState.Offline;
@@ -142,6 +144,11 @@ public class PteroConsole : IDisposable
                             case "console output":
                                 foreach (var line in eventData.Args)
                                 {
+                                    lock (MessageCache)
+                                    {
+                                        MessageCache.Add(line);
+                                    }
+                                    
                                     OnMessage?.Invoke(this, line);
                                 }
                                 break;
@@ -149,6 +156,11 @@ public class PteroConsole : IDisposable
                             case "install output":
                                 foreach (var line in eventData.Args)
                                 {
+                                    lock (MessageCache)
+                                    {
+                                        MessageCache.Add(line);
+                                    }
+                                    
                                     OnMessage?.Invoke(this, line);
                                 }
                                 break;
@@ -156,6 +168,11 @@ public class PteroConsole : IDisposable
                             case "daemon message":
                                 foreach (var line in eventData.Args)
                                 {
+                                    lock (MessageCache)
+                                    {
+                                        MessageCache.Add(line);
+                                    }
+                                    
                                     OnMessage?.Invoke(this, line);
                                 }
                                 break;
