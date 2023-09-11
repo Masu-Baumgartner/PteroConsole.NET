@@ -14,13 +14,13 @@ public class ServerResource
     public float CpuAbsolute { get; set; }
 
     [JsonProperty("network")]
-    public NetworkData Network { get; set; }
+    public NetworkData? Network { get; set; }
 
     [JsonProperty("uptime")]
     public double Uptime { get; set; }
 
     [JsonProperty("state")]
-    public string State { get; set; }
+    public string? State { get; set; }
 
     [JsonProperty("disk_bytes")]
     public long DiskBytes { get; set; }

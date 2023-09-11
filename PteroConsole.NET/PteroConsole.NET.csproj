@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>PteroConsole.NET</Title>
     <Authors>Marcel-Baumgartner</Authors>
-    <Description>A library for connecting to pterodactyl server consoles</Description>
+    <Description>A library for connecting to pterodactyl server console</Description>
     <Copyright>Marcel-Baumgartner</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</PackageProjectUrl>
@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/Marcel-Baumgartner/PteroConsole.NET</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>csharp pterodactyl console server stream</PackageTags>
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>1.0.5</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
